@@ -1,4 +1,4 @@
-# ifood
+# cadastro
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
@@ -49,11 +49,14 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 ./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
 ```
 
-You can then execute your native executable with: `./build/ifood-0.0.1-SNAPSHOT-runner`
+You can then execute your native executable with: `./build/cadastro-0.0.1-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling.
 
-## Related Guides
+## Provided Code
 
-- JDBC Driver - H2 ([guide](https://quarkus.io/guides/datasource)): Connect to the H2 database via JDBC
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
+### RESTEasy Reactive
+
+Easily start your Reactive RESTful Web Services
+
+[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
