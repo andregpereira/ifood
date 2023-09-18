@@ -29,14 +29,15 @@ dependencyResolutionManagement {
             plugin("quarkus", quarkusPluginId).versionRef(quarkus)
             plugin("lombok", lombokPluginId).versionRef(lombok)
             library("quarkus-bom", "io.quarkus.platform", "quarkus-bom").versionRef("quarkus-platform")
-            library("quarkus-hibernate-orm-panache", quarkusGroupId, "quarkus-hibernate-orm-panache").withoutVersion()
-            library("quarkus-jdbc-h2", quarkusGroupId, "quarkus-jdbc-h2").withoutVersion()
+            library("quarkus-hibernate-reactive-panache", quarkusGroupId, "quarkus-hibernate-reactive-panache").withoutVersion()
+            library("quarkus-reactive-pg-client", quarkusGroupId, "quarkus-reactive-pg-client").withoutVersion()
             library("quarkus-resteasy", quarkusGroupId, "quarkus-resteasy-reactive-jsonb").withoutVersion()
             library("quarkus-smallrye-openapi", quarkusGroupId, "quarkus-smallrye-openapi").withoutVersion()
+            library("quarkus-config-yaml", quarkusGroupId, "quarkus-config-yaml").withoutVersion()
             library("lombok-mapstructBinding", "org.projectlombok:lombok-mapstruct-binding:0.2.0")
             library("mapstruct", "org.mapstruct", "mapstruct").versionRef("mapstruct")
             library("mapstruct-processor", "org.mapstruct", "mapstruct-processor").versionRef("mapstruct")
-            bundle("quarkus", listOf("quarkus-hibernate-orm-panache", "quarkus-smallrye-openapi", "quarkus-resteasy", "quarkus-jdbc-h2"))
+            bundle("quarkus", listOf("quarkus-hibernate-reactive-panache", "quarkus-reactive-pg-client", "quarkus-resteasy", "quarkus-smallrye-openapi", "quarkus-config-yaml"))
             bundle("lombokMapstructProcessors", listOf("lombok-mapstructBinding", "mapstruct-processor"))
         }
         create("testLibs") {
