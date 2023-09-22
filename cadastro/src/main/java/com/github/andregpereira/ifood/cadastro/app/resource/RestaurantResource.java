@@ -32,13 +32,13 @@ public class RestaurantResource {
     private final DishService dishService;
     private final UriInfo uriInfo;
 
-    private URI getUri(RestaurantDto dto) {
-        return uriInfo.getAbsolutePathBuilder().path("{id}").build(dto.id());
+    private URI getUri(UUID id) {
+        return uriInfo.getAbsolutePathBuilder().path("{id}").build(id);
     }
 
     @POST
     public Uni<RestResponse<RestaurantDto>> createRestaurant(RestaurantCreateDto dto) {
-        return restaurantService.create(dto).map(r -> ResponseBuilder.<RestaurantDto>created(getUri(r)).entity(
+        return restaurantService.create(dto).map(r -> ResponseBuilder.<RestaurantDto>created(getUri(r.id())).entity(
                 r).build());
     }
 
@@ -46,7 +46,7 @@ public class RestaurantResource {
     @Path("/{id}")
     public Uni<RestResponse<RestaurantDto>> updateRestaurant(@RestPath UUID id, RestaurantCreateDto dto) {
         return restaurantService.update(id, dto).map(
-                r -> ResponseBuilder.<RestaurantDto>ok().location(getUri(r)).build());
+                r -> ResponseBuilder.<RestaurantDto>ok().location(getUri(r.id())).build());
     }
 
     @GET
@@ -70,8 +70,7 @@ public class RestaurantResource {
     @POST
     @Path("/{restaurantId}/dishes")
     public Uni<RestResponse<DishDto>> createDish(@RestPath UUID restaurantId, DishCreateDto dto) {
-        return dishService.create(dto).map(r -> ResponseBuilder.<DishDto>created(
-                uriInfo.getAbsolutePathBuilder().path("{id}").build(r.id())).entity(r).build());
+        return dishService.create(dto).map(p -> ResponseBuilder.<DishDto>created(getUri(p.id())).entity(p).build());
     }
 
 }
