@@ -18,6 +18,6 @@ public interface RestaurantDataProviderMapper {
     }
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Restaurant partialUpdate(RestaurantEntity e, @MappingTarget Restaurant r);
+    RestaurantEntity partialUpdate(Restaurant r, @MappingTarget RestaurantEntity e);
 
 }
