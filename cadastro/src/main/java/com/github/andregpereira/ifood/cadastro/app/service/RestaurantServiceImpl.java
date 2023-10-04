@@ -3,10 +3,7 @@ package com.github.andregpereira.ifood.cadastro.app.service;
 import com.github.andregpereira.ifood.cadastro.app.dto.restaurant.RestaurantCreateDto;
 import com.github.andregpereira.ifood.cadastro.app.dto.restaurant.RestaurantDto;
 import com.github.andregpereira.ifood.cadastro.app.mapper.RestaurantServiceMapper;
-import com.github.andregpereira.ifood.cadastro.domain.usecase.restaurant.CreateRestaurant;
-import com.github.andregpereira.ifood.cadastro.domain.usecase.restaurant.FindAllRestaurant;
-import com.github.andregpereira.ifood.cadastro.domain.usecase.restaurant.FindByNameRestaurant;
-import com.github.andregpereira.ifood.cadastro.domain.usecase.restaurant.RestaurantFindById;
+import com.github.andregpereira.ifood.cadastro.domain.usecase.restaurant.*;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +18,7 @@ import java.util.UUID;
 public class RestaurantServiceImpl implements RestaurantService {
 
     private final CreateRestaurant createRestaurant;
+    private final RestaurantUpdate update;
     private final RestaurantFindById findById;
     private final FindAllRestaurant findAllRestaurant;
     private final FindByNameRestaurant findByNameRestaurant;
@@ -29,6 +27,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Uni<RestaurantDto> create(RestaurantCreateDto dto) {
         return createRestaurant.create(mapper.toModel(dto)).map(mapper::toDto);
+    }
+
+    @Override
+    public Uni<RestaurantDto> update(UUID id, RestaurantCreateDto dto) {
+        return update.update(id, mapper.toModel(dto)).map(mapper::toDto);
     }
 
     @Override

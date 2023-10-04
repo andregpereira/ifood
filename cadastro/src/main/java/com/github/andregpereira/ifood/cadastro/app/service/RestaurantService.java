@@ -4,17 +4,12 @@ import com.github.andregpereira.ifood.cadastro.app.dto.restaurant.RestaurantCrea
 import com.github.andregpereira.ifood.cadastro.app.dto.restaurant.RestaurantDto;
 import io.smallrye.mutiny.Uni;
 
-import java.util.List;
 import java.util.UUID;
 
-public interface RestaurantService {
+public non-sealed interface RestaurantService extends BaseService<RestaurantDto> {
 
     Uni<RestaurantDto> create(RestaurantCreateDto dto);
 
-    Uni<RestaurantDto> findById(UUID id);
-
-    Uni<List<RestaurantDto>> findAll();
-
-    Uni<List<RestaurantDto>> findByName(String name);
+    Uni<RestaurantDto> update(UUID id, RestaurantCreateDto dto);
 
 }
