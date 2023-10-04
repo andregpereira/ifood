@@ -1,5 +1,6 @@
 package com.github.andregpereira.ifood.cadastro.infra.dataprovider;
 
+import com.github.andregpereira.ifood.cadastro.cross.exception.RestaurantNotFoundException;
 import com.github.andregpereira.ifood.cadastro.domain.gateway.RestaurantGateway;
 import com.github.andregpereira.ifood.cadastro.domain.model.Restaurant;
 import com.github.andregpereira.ifood.cadastro.infra.mapper.RestaurantDataProviderMapper;
@@ -25,13 +26,20 @@ public class RestaurantDataProvider implements RestaurantGateway {
     private final RestaurantDataProviderMapper mapper;
 
     @Override
-    public Uni<Restaurant> save(Restaurant restaurant) {
+    public Uni<Restaurant> create(Restaurant restaurant) {
         return Panache.withTransaction(() -> repository.persist(mapper.toEntity(restaurant)).map(mapper::toModel));
     }
 
     @Override
+    public Uni<Restaurant> update(UUID id, Restaurant restaurant) {
+        return Panache.withTransaction(() -> repository.findById(id).map(r -> mapper.partialUpdate(restaurant, r)).map(
+                mapper::toModel));
+    }
+
+    @Override
     public Uni<Restaurant> findById(UUID id) {
-        return Panache.withSession(() -> repository.findById(id).map(mapper::toModel));
+        return Panache.withSession(() -> repository.findById(id).onItem().ifNull().failWith(
+                () -> new RestaurantNotFoundException(id)).map(mapper::toModel));
     }
 
     @Override
