@@ -10,13 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 @ApplicationScoped
-public class CreateRestaurantImpl implements CreateRestaurant {
+public class RestaurantCreateImpl implements RestaurantCreate {
 
     private final RestaurantGateway gateway;
 
     @Override
     public Uni<Restaurant> create(Restaurant restaurant) {
-        return gateway.save(restaurant);
+        return gateway.create(restaurant);
     }
 
 }
