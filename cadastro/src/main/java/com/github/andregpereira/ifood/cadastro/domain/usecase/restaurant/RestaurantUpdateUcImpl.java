@@ -12,7 +12,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 @ApplicationScoped
-public class RestaurantUpdateImpl implements RestaurantUpdate {
+public class RestaurantUpdateUcImpl implements RestaurantUpdateUc {
 
     private final RestaurantGateway gateway;
 

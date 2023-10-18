@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @ApplicationScoped
-public class FindAllRestaurantImpl implements FindAllRestaurant {
+public class RestaurantFindAllUcImpl implements RestaurantFindAllUc {
 
     private final RestaurantGateway gateway;
 

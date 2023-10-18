@@ -5,7 +5,7 @@ import io.smallrye.mutiny.Uni;
 
 import java.util.UUID;
 
-public interface RestaurantUpdate {
+public interface RestaurantUpdateUc {
 
     Uni<Restaurant> update(UUID id, Restaurant restaurant);
 

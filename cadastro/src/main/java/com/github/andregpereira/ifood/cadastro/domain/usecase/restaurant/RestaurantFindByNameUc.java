@@ -5,7 +5,7 @@ import io.smallrye.mutiny.Uni;
 
 import java.util.List;
 
-public interface FindByNameRestaurant {
+public interface RestaurantFindByNameUc {
 
     Uni<List<Restaurant>> findByName(String name);
 

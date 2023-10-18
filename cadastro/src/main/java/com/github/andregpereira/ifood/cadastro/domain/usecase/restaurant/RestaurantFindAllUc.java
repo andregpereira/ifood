@@ -5,7 +5,7 @@ import io.smallrye.mutiny.Uni;
 
 import java.util.List;
 
-public interface FindAllRestaurant {
+public interface RestaurantFindAllUc {
 
     Uni<List<Restaurant>> findAll();
 

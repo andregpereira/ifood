@@ -5,7 +5,7 @@ import io.smallrye.mutiny.Uni;
 
 import java.util.UUID;
 
-public interface RestaurantFindById {
+public interface RestaurantFindByIdUc {
 
     Uni<Restaurant> findById(UUID id);
 
