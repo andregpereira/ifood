@@ -4,6 +4,7 @@ import com.github.andregpereira.ifood.cadastro.app.dto.restaurant.RestaurantCrea
 import com.github.andregpereira.ifood.cadastro.app.dto.restaurant.RestaurantDto;
 import com.github.andregpereira.ifood.cadastro.app.service.RestaurantService;
 import io.smallrye.mutiny.Uni;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -11,6 +12,11 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.UriInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType;
+import org.eclipse.microprofile.openapi.annotations.security.OAuthFlow;
+import org.eclipse.microprofile.openapi.annotations.security.OAuthFlows;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.resteasy.reactive.RestPath;
 import org.jboss.resteasy.reactive.RestQuery;
@@ -25,6 +31,10 @@ import java.util.UUID;
 @Slf4j
 @Path("/restaurants")
 @Tag(name = "restaurant")
+@RolesAllowed("owner")
+@SecurityScheme(securitySchemeName = "ifood-oauth", type = SecuritySchemeType.OAUTH2, flows = @OAuthFlows(
+        password = @OAuthFlow(tokenUrl = "http://localhost:8180/auth/realms/ifood/protocol/openid-connect/token")))
+@SecurityRequirement(name = "ifood-oauth", scopes = {""})
 public class RestaurantResource {
 
     private final RestaurantService restaurantService;
