@@ -17,36 +17,36 @@ import java.util.UUID;
 @ApplicationScoped
 public class RestaurantServiceImpl implements RestaurantService {
 
-    private final CreateRestaurant createRestaurant;
-    private final RestaurantUpdate update;
-    private final RestaurantFindById findById;
-    private final FindAllRestaurant findAllRestaurant;
-    private final FindByNameRestaurant findByNameRestaurant;
+    private final RestaurantCreateUc createUc;
+    private final RestaurantUpdateUc updateUc;
+    private final RestaurantFindByIdUc findByIdUc;
+    private final RestaurantFindAllUc findAllUc;
+    private final RestaurantFindByNameUc findByNameUc;
     private final RestaurantServiceMapper mapper;
 
     @Override
     public Uni<RestaurantDto> create(RestaurantCreateDto dto) {
-        return createRestaurant.create(mapper.toModel(dto)).map(mapper::toDto);
+        return createUc.create(mapper.toModel(dto)).map(mapper::toDto);
     }
 
     @Override
     public Uni<RestaurantDto> update(UUID id, RestaurantCreateDto dto) {
-        return update.update(id, mapper.toModel(dto)).map(mapper::toDto);
+        return updateUc.update(id, mapper.toModel(dto)).map(mapper::toDto);
     }
 
     @Override
     public Uni<RestaurantDto> findById(UUID id) {
-        return findById.findById(id).map(mapper::toDto);
+        return findByIdUc.findById(id).map(mapper::toDto);
     }
 
     @Override
     public Uni<List<RestaurantDto>> findAll() {
-        return findAllRestaurant.findAll().map(mapper::toDtoList);
+        return findAllUc.findAll().map(mapper::toDtoList);
     }
 
     @Override
     public Uni<List<RestaurantDto>> findByName(String name) {
-        return findByNameRestaurant.findByName(name).map(mapper::toDtoList);
+        return findByNameUc.findByName(name).map(mapper::toDtoList);
     }
 
 }
