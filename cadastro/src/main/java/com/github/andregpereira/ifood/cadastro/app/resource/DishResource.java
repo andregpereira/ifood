@@ -23,6 +23,7 @@ import java.util.UUID;
 @Tag(name = "dish")
 public class DishResource {
 
+    private @RestPath UUID restaurantId;
     private final DishService dishService;
     private final UriInfo uriInfo;
 
@@ -31,22 +32,21 @@ public class DishResource {
     }
 
     @POST
-    public Uni<RestResponse<DishDto>> createDish(@RestPath UUID restaurantId, DishCreateDto dto) {
+    public Uni<RestResponse<DishDto>> createDish(DishCreateDto dto) {
         return dishService.create(restaurantId, dto).map(p -> ResponseBuilder.<DishDto>created(getUri(p.id())).entity(
                 p).build());
     }
 
     @PUT
     @Path("/{dishId}")
-    public Uni<RestResponse<DishDto>> updateDish(@RestPath UUID restaurantId, @RestPath UUID dishId,
-            DishCreateDto dto) {
+    public Uni<RestResponse<DishDto>> updateDish(@RestPath UUID dishId, DishCreateDto dto) {
         return dishService.update(restaurantId, dishId, dto).map(p -> ResponseBuilder.<DishDto>ok().location(
                 getUri(p.id())).entity(p).build());
     }
 
     @DELETE
     @Path("/{dishId}")
-    public Uni<RestResponse<Void>> deleteDish(@RestPath UUID restaurantId, @RestPath UUID dishId) {
+    public Uni<RestResponse<Void>> deleteDish(@RestPath UUID dishId) {
         return dishService.delete(restaurantId, dishId).replaceWith(RestResponse::ok);
     }
 
