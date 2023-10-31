@@ -3,6 +3,6 @@ package com.github.andregpereira.ifood.cadastro.infra.repository;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class DishRepositoryImpl implements DishRepository {
+public final class DishRepositoryImpl implements DishRepository {
 
 }
