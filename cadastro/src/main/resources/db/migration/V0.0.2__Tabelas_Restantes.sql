@@ -22,6 +22,6 @@ CREATE TABLE "public"."dish" (
 );
 
 ALTER TABLE "public"."dish"
-ADD CONSTRAINT fkt13glsbe9ivpka00hbeg539cv
+ADD CONSTRAINT restaurant_id_fk
 FOREIGN KEY (restaurant_id)
 REFERENCES "public"."restaurant"(restaurant_id);
