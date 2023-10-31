@@ -3,7 +3,6 @@ package com.github.andregpereira.ifood.cadastro.app.service;
 import com.github.andregpereira.ifood.cadastro.app.dto.dish.DishCreateDto;
 import com.github.andregpereira.ifood.cadastro.app.dto.dish.DishDto;
 import com.github.andregpereira.ifood.cadastro.app.mapper.DishServiceMapper;
-import com.github.andregpereira.ifood.cadastro.domain.model.Dish;
 import com.github.andregpereira.ifood.cadastro.domain.usecase.dish.*;
 import com.github.andregpereira.ifood.cadastro.domain.usecase.restaurant.RestaurantFindByIdUc;
 import io.smallrye.mutiny.Uni;
@@ -25,14 +24,14 @@ public class DishServiceImpl implements DishService {
     private final DishFindAllUc findAllUc;
     private final DishFindByIdUc dishFindByIdUc;
     private final DishFindByNameUc findByNameUc;
-    private final RestaurantFindByIdUc restaurantFindById;
+    private final RestaurantFindByIdUc restaurantFindByIdUc;
     private final DishServiceMapper mapper;
 
     @Override
     public Uni<DishDto> create(UUID restaurantId, DishCreateDto dto) {
         return Uni.createFrom()
                 .item(() -> mapper.toModel(dto))
-                .call(d -> restaurantFindById.findById(restaurantId)
+                .call(d -> restaurantFindByIdUc.findById(restaurantId)
                         .invoke(d::setRestaurant))
                 .chain(createUc::create)
                 .map(mapper::toDto);
@@ -57,7 +56,7 @@ public class DishServiceImpl implements DishService {
     public Uni<DishDto> update(UUID restaurantId, UUID dishId, DishCreateDto dto) {
         return Uni.createFrom()
                 .item(() -> mapper.toModel(dto))
-                .call(d -> restaurantFindById.findById(restaurantId)
+                .call(d -> restaurantFindByIdUc.findById(restaurantId)
                         .invoke(d::setRestaurant))
                 .chain(d -> updateUc.update(dishId, d))
                 .map(mapper::toDto);
@@ -78,7 +77,7 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public Uni<Void> delete(UUID restaurantId, UUID dishId) {
-        return restaurantFindById.findById(restaurantId)
+        return restaurantFindByIdUc.findById(restaurantId)
                 .chain(() -> deleteUc.delete(dishId));
     }
 
