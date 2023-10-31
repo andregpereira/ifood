@@ -35,6 +35,7 @@ dependencyResolutionManagement {
             library("quarkus-hibernate-reactive-panache", quarkusGroupId, "quarkus-hibernate-reactive-panache").withoutVersion()
             library("quarkus-hibernate-validator", quarkusGroupId, "quarkus-hibernate-validator").withoutVersion()
             library("quarkus-jdbc-postgresql", quarkusGroupId, "quarkus-jdbc-postgresql").withoutVersion()
+            library("quarkus-micrometer-registry-prometheus", quarkusGroupId, "quarkus-micrometer-registry-prometheus").withoutVersion()
             library("quarkus-reactive-pg-client", quarkusGroupId, "quarkus-reactive-pg-client").withoutVersion()
             library("quarkus-resteasy-reactive-jsonb", quarkusGroupId, "quarkus-resteasy-reactive-jsonb").withoutVersion()
             library("quarkus-resteasy-problem", "com.tietoevry.quarkus", "quarkus-resteasy-problem").versionRef(quarkusResteasyProblem)
@@ -44,7 +45,7 @@ dependencyResolutionManagement {
             library("lombok-mapstructBinding", "org.projectlombok:lombok-mapstruct-binding:0.2.0")
             library("mapstruct", "org.mapstruct", "mapstruct").versionRef("mapstruct")
             library("mapstruct-processor", "org.mapstruct", "mapstruct-processor").versionRef("mapstruct")
-            bundle("quarkus", listOf("quarkus-flyway", "quarkus-hibernate-reactive-panache", "quarkus-hibernate-validator", "quarkus-jdbc-postgresql", "quarkus-smallrye-jwt", "quarkus-opentelemetry", "quarkus-reactive-pg-client", "quarkus-resteasy-reactive-jsonb", "quarkus-resteasy-problem", "quarkus-smallrye-openapi", "quarkus-config-yaml"))
+            bundle("quarkus", listOf("quarkus-flyway", "quarkus-hibernate-reactive-panache", "quarkus-hibernate-validator", "quarkus-jdbc-postgresql", "quarkus-micrometer-registry-prometheus", "quarkus-smallrye-jwt", "quarkus-opentelemetry", "quarkus-reactive-pg-client", "quarkus-resteasy-reactive-jsonb", "quarkus-resteasy-problem", "quarkus-smallrye-openapi", "quarkus-config-yaml"))
             bundle("lombokMapstructProcessors", listOf("lombok-mapstructBinding", "mapstruct-processor"))
         }
         create("testLibs") {
