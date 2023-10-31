@@ -73,6 +73,8 @@ public class RestaurantResource {
     }
 
     @GET
+    @Counted("Quantidade buscas Restaurante")
+    @Timed("Tempo completo de busca")
     public Uni<RestResponse<List<RestaurantDto>>> findAll() {
         return restaurantService.findAll()
                 .map(RestResponse::ok);
