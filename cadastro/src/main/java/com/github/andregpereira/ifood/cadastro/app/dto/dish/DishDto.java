@@ -1,5 +1,6 @@
 package com.github.andregpereira.ifood.cadastro.app.dto.dish;
 
+import com.github.andregpereira.ifood.cadastro.app.dto.restaurant.RestaurantDto;
 import com.github.andregpereira.ifood.cadastro.domain.model.Restaurant;
 import jakarta.json.bind.annotation.JsonbPropertyOrder;
 
@@ -11,6 +12,6 @@ public record DishDto(UUID id,
         String name,
         String description,
         BigDecimal price,
-        Restaurant restaurant) {
+        RestaurantDto restaurant) {
 
 }
