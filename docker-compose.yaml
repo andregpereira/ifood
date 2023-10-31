@@ -44,6 +44,15 @@ services:
     ports:
       - "5423:5432"
 
+  marketplace-db:
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: marketplace
+    ports:
+      - "5424:5432"
+
   jaeger:
     image: jaegertracing/all-in-one
     ports:
