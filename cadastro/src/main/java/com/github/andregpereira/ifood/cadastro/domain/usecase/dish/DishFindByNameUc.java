@@ -1,0 +1,8 @@
+package com.github.andregpereira.ifood.cadastro.domain.usecase.dish;
+
+import com.github.andregpereira.ifood.cadastro.domain.model.Dish;
+import com.github.andregpereira.ifood.cadastro.domain.usecase.FindByNameUc;
+
+public interface DishFindByNameUc extends FindByNameUc<Dish> {
+
+}
