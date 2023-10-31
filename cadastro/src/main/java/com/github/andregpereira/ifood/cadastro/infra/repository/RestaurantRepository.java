@@ -5,6 +5,6 @@ import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
 
 import java.util.UUID;
 
-public interface RestaurantRepository extends PanacheRepositoryBase<RestaurantEntity, UUID> {
+public non-sealed interface RestaurantRepository extends BaseRepository<RestaurantEntity> {
 
 }
