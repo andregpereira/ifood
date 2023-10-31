@@ -28,7 +28,7 @@ public class DishEntity {
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "restaurant_id", nullable = false)
+    @JoinColumn(name = "restaurant_id", nullable = false, foreignKey = @ForeignKey(name = "restaurant_id_fk"))
     private RestaurantEntity restaurant;
 
     @Override
@@ -37,10 +37,12 @@ public class DishEntity {
             return true;
         if (!(o instanceof DishEntity dish))
             return false;
-        Class<?> oEffectiveClass = o instanceof HibernateProxy hibernateProxy
-                ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass() : o.getClass();
-        Class<?> thisEffectiveClass = this instanceof HibernateProxy hibernateProxy
-                ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        Class<?> oEffectiveClass =
+                o instanceof HibernateProxy hibernateProxy ? hibernateProxy.getHibernateLazyInitializer()
+                        .getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass =
+                this instanceof HibernateProxy hibernateProxy ? hibernateProxy.getHibernateLazyInitializer()
+                        .getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass)
             return false;
         return id != null && Objects.equals(id, dish.id);
@@ -48,8 +50,9 @@ public class DishEntity {
 
     @Override
     public final int hashCode() {
-        return this instanceof HibernateProxy hibernateProxy
-                ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+        return this instanceof HibernateProxy hibernateProxy ? hibernateProxy.getHibernateLazyInitializer()
+                .getPersistentClass()
+                .hashCode() : getClass().hashCode();
     }
 
 }
