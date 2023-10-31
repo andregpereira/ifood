@@ -35,7 +35,6 @@ services:
     volumes:
       - "~/data/postgresql/ifood/keycloak/data:/pg-data"
 
-
   cadastro-db:
     image: postgres:alpine
     environment:
@@ -60,3 +59,15 @@ services:
       - "9411:9411"
     environment:
       - COLLECTOR_OTLP_ENABLED=true
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - '9090:9090'
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - '3000:3000'
