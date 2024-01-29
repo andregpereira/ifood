@@ -2,7 +2,7 @@ package com.github.andregpereira.ifood.cadastro.app.resource;
 
 import com.github.andregpereira.ifood.cadastro.app.dto.dish.DishCreateDto;
 import com.github.andregpereira.ifood.cadastro.app.dto.dish.DishDto;
-import com.github.andregpereira.ifood.cadastro.app.service.DishService;
+import com.github.andregpereira.ifood.cadastro.app.facade.DishFacade;
 import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.UriInfo;
@@ -23,9 +23,11 @@ import java.util.UUID;
 @Tag(name = "dish")
 public class DishResource {
 
-    private @RestPath UUID restaurantId;
-    private final DishService dishService;
+    private final DishFacade facade;
     private final UriInfo uriInfo;
+
+    @RestPath
+    private UUID restaurantId;
 
     private URI getUri(UUID id) {
         return uriInfo.getAbsolutePathBuilder().path("{id}").build(id);
@@ -33,26 +35,26 @@ public class DishResource {
 
     @POST
     public Uni<RestResponse<DishDto>> createDish(DishCreateDto dto) {
-        return dishService.create(restaurantId, dto).map(p -> ResponseBuilder.<DishDto>created(getUri(p.id())).entity(
-                p).build());
+        return facade.create(restaurantId, dto)
+                .map(p -> ResponseBuilder.<DishDto>created(getUri(p.id())).entity(p).build());
     }
 
     @PUT
     @Path("/{dishId}")
     public Uni<RestResponse<DishDto>> updateDish(@RestPath UUID dishId, DishCreateDto dto) {
-        return dishService.update(restaurantId, dishId, dto).map(p -> ResponseBuilder.<DishDto>ok().location(
-                getUri(p.id())).entity(p).build());
+        return facade.update(restaurantId, dishId, dto)
+                .map(p -> ResponseBuilder.<DishDto>ok().location(getUri(p.id())).entity(p).build());
     }
 
     @DELETE
     @Path("/{dishId}")
     public Uni<RestResponse<Void>> deleteDish(@RestPath UUID dishId) {
-        return dishService.delete(restaurantId, dishId).replaceWith(RestResponse::ok);
+        return facade.delete(restaurantId, dishId).replaceWith(RestResponse::ok);
     }
 
     @GET
-    public Uni<RestResponse<List<DishDto>>> findAll() {
-        return dishService.findAll().map(RestResponse::ok);
+    public Uni<RestResponse<List<DishDto>>> findAllDishes() {
+        return facade.findAll().map(RestResponse::ok);
     }
 
 }
