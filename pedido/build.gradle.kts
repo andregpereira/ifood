@@ -1,7 +1,3 @@
-plugins {
-    alias(libs.plugins.quarkus)
-}
-
 dependencies {
     implementation(libs.bundles.quarkus)
     implementation(libs.mapstruct)
