@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.bouncycastle.its.asn1.EndEntityType.app
+
 plugins {
     java
     alias(libs.plugins.quarkus) apply false
@@ -7,12 +9,15 @@ plugins {
 allprojects {
     group = "com.github.andregpereira.ifood"
     version = "0.0.1-SNAPSHOT"
+    apply {
+        plugin("java")
+    }
 }
 
 subprojects {
     apply {
-        plugin("java")
-        plugin(rootProject.libs.plugins.lombok.get().toString().substringBefore(":"))
+        plugin(rootProject.libs.plugins.lombok.get().pluginId)
+        plugin(rootProject.libs.plugins.quarkus.get().pluginId)
     }
     dependencies {
         implementation(enforcedPlatform(rootProject.libs.quarkus.bom))
@@ -30,5 +35,5 @@ subprojects {
     }
 }
 
-tasks.named("compileJava").configure { enabled = false }
-tasks.named("jar").configure { enabled = false }
+tasks.withType<JavaCompile> { enabled = false }
+tasks.withType<Jar> { enabled = false }
