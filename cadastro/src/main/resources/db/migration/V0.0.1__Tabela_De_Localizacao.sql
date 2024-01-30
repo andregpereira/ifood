@@ -1,5 +1,6 @@
-CREATE TABLE "public"."location" (
-   "latitude" float(19) NOT NULL,
-   "longitude" float(19) NOT NULL,
-   "location_id" uuid PRIMARY KEY NOT NULL
+CREATE TABLE tb_location (
+   location_id UUID NOT NULL,
+   latitude DOUBLE PRECISION NOT NULL,
+   longitude DOUBLE PRECISION NOT NULL,
+   CONSTRAINT pk_tb_location PRIMARY KEY (location_id)
 );

@@ -1,27 +1,29 @@
-CREATE TABLE "public"."restaurant" (
-   "created_date" timestamp,
-   "modified_date" timestamp,
-   "location_id" uuid NOT NULL,
-   "restaurant_id" uuid PRIMARY KEY NOT NULL,
-   "cnpj" varchar(255),
-   "name" varchar(255),
-   "owner" varchar(255)
+CREATE TABLE tb_restaurant (
+   restaurant_id UUID NOT NULL,
+   name VARCHAR(255),
+   owner VARCHAR(255),
+   cnpj VARCHAR(255),
+   created_date TIMESTAMP WITHOUT TIME ZONE,
+   modified_date TIMESTAMP WITHOUT TIME ZONE,
+   location_id UUID NOT NULL,
+   CONSTRAINT pk_tb_restaurant PRIMARY KEY (restaurant_id)
 );
 
-ALTER TABLE "public"."restaurant"
-ADD CONSTRAINT location_id_fk
+ALTER TABLE tb_restaurant
+ADD CONSTRAINT LOCATION_ID_FK
 FOREIGN KEY (location_id)
-REFERENCES "public"."location"(location_id);
+REFERENCES tb_location (location_id);
 
-CREATE TABLE "public"."dish" (
-   "price" numeric(5,2) NOT NULL,
-   "dish_id" uuid PRIMARY KEY NOT NULL,
-   "restaurant_id" uuid NOT NULL,
-   "description" varchar(255),
-   "name" varchar(255)
+CREATE TABLE tb_dish (
+   dish_id UUID NOT NULL,
+   name VARCHAR(255),
+   description VARCHAR(255),
+   price DECIMAL(5, 2) NOT NULL,
+   restaurant_id UUID NOT NULL,
+   CONSTRAINT pk_tb_dish PRIMARY KEY (dish_id)
 );
 
-ALTER TABLE "public"."dish"
-ADD CONSTRAINT restaurant_id_fk
+ALTER TABLE tb_dish
+ADD CONSTRAINT RESTAURANT_ID_FK
 FOREIGN KEY (restaurant_id)
-REFERENCES "public"."restaurant"(restaurant_id);
+REFERENCES tb_restaurant (restaurant_id);
