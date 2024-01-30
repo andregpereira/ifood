@@ -2,7 +2,7 @@ package com.github.andregpereira.ifood.cadastro.app.resource;
 
 import com.github.andregpereira.ifood.cadastro.app.dto.restaurant.RestaurantCreateDto;
 import com.github.andregpereira.ifood.cadastro.app.dto.restaurant.RestaurantDto;
-import com.github.andregpereira.ifood.cadastro.app.service.RestaurantService;
+import com.github.andregpereira.ifood.cadastro.app.facade.RestaurantFacade;
 import io.micrometer.core.annotation.Counted;
 import io.micrometer.core.annotation.Timed;
 import io.smallrye.mutiny.Uni;
@@ -39,52 +39,41 @@ import java.util.UUID;
 @SecurityRequirement(name = "ifood-oauth", scopes = {""})
 public class RestaurantResource {
 
-    private final RestaurantService restaurantService;
+    private final RestaurantFacade facade;
     private final UriInfo uriInfo;
 
     private URI getUri(UUID id) {
-        return uriInfo.getAbsolutePathBuilder()
-                .path("{id}")
-                .build(id);
+        return uriInfo.getAbsolutePathBuilder().path("{id}").build(id);
     }
 
     @POST
     public Uni<RestResponse<RestaurantDto>> createRestaurant(RestaurantCreateDto dto) {
-        return restaurantService.create(dto)
-                .map(r -> ResponseBuilder.<RestaurantDto>created(getUri(r.id()))
-                        .entity(r)
-                        .build());
+        return facade.create(dto).map(r -> ResponseBuilder.<RestaurantDto>created(getUri(r.id())).entity(r).build());
     }
 
     @PUT
     @Path("/{id}")
     public Uni<RestResponse<RestaurantDto>> updateRestaurant(@RestPath UUID id, RestaurantCreateDto dto) {
-        return restaurantService.update(id, dto)
-                .map(r -> ResponseBuilder.<RestaurantDto>ok()
-                        .location(getUri(r.id()))
-                        .build());
+        return facade.update(id, dto).map(r -> ResponseBuilder.<RestaurantDto>ok().location(getUri(r.id())).build());
     }
 
     @GET
     @Path("/{id}")
     public Uni<RestResponse<RestaurantDto>> findById(@RestPath UUID id) {
-        return restaurantService.findById(id)
-                .map(RestResponse::ok);
+        return facade.findById(id).map(RestResponse::ok);
     }
 
     @GET
     @Counted("Quantidade buscas Restaurante")
     @Timed("Tempo completo de busca")
     public Uni<RestResponse<List<RestaurantDto>>> findAll() {
-        return restaurantService.findAll()
-                .map(RestResponse::ok);
+        return facade.findAll().map(RestResponse::ok);
     }
 
     @GET
     @Path("/name")
     public Uni<RestResponse<List<RestaurantDto>>> findByName(@RestQuery String name) {
-        return restaurantService.findByName(name)
-                .map(RestResponse::ok);
+        return facade.findByName(name).map(RestResponse::ok);
     }
 
 }
