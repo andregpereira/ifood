@@ -33,7 +33,7 @@ services:
     ports:
       - "5402:5432"
     volumes:
-      - "~/data/postgresql/ifood/keycloak/data:/pg-data"
+      - ~/data/postgresql/ifood/keycloak/pg-data:/pg-data
 
   cadastro-db:
     image: postgres:alpine
@@ -66,8 +66,6 @@ services:
       - "14268:14268" # Receive legacy OpenTracing traces, optional
       - "14269:14269"
       - "9411:9411"
-    environment:
-      - COLLECTOR_OTLP_ENABLED=true
 
   prometheus:
     image: prom/prometheus
