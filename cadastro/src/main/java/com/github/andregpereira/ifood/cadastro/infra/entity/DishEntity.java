@@ -14,6 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "dish")
+@Table(name = "tb_dish")
 public class DishEntity {
 
     @Id
@@ -37,12 +38,12 @@ public class DishEntity {
             return true;
         if (!(o instanceof DishEntity dish))
             return false;
-        Class<?> oEffectiveClass =
-                o instanceof HibernateProxy hibernateProxy ? hibernateProxy.getHibernateLazyInitializer()
-                        .getPersistentClass() : o.getClass();
-        Class<?> thisEffectiveClass =
-                this instanceof HibernateProxy hibernateProxy ? hibernateProxy.getHibernateLazyInitializer()
-                        .getPersistentClass() : this.getClass();
+        Class<?> oEffectiveClass = o instanceof HibernateProxy hibernateProxy ?
+                hibernateProxy.getHibernateLazyInitializer().getPersistentClass() :
+                o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy hibernateProxy ?
+                hibernateProxy.getHibernateLazyInitializer().getPersistentClass() :
+                this.getClass();
         if (thisEffectiveClass != oEffectiveClass)
             return false;
         return id != null && Objects.equals(id, dish.id);
@@ -50,9 +51,9 @@ public class DishEntity {
 
     @Override
     public final int hashCode() {
-        return this instanceof HibernateProxy hibernateProxy ? hibernateProxy.getHibernateLazyInitializer()
-                .getPersistentClass()
-                .hashCode() : getClass().hashCode();
+        return this instanceof HibernateProxy hibernateProxy ?
+                hibernateProxy.getHibernateLazyInitializer().getPersistentClass().hashCode() :
+                getClass().hashCode();
     }
 
 }

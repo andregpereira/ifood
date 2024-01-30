@@ -16,6 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "restaurant")
+@Table(name = "tb_restaurant")
 public class RestaurantEntity {
 
     @Id
@@ -45,10 +46,12 @@ public class RestaurantEntity {
             return true;
         if (!(o instanceof RestaurantEntity restaurant))
             return false;
-        Class<?> oEffectiveClass = o instanceof HibernateProxy hibernateProxy
-                ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass() : o.getClass();
-        Class<?> thisEffectiveClass = this instanceof HibernateProxy hibernateProxy
-                ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        Class<?> oEffectiveClass = o instanceof HibernateProxy hibernateProxy ?
+                hibernateProxy.getHibernateLazyInitializer().getPersistentClass() :
+                o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy hibernateProxy ?
+                hibernateProxy.getHibernateLazyInitializer().getPersistentClass() :
+                this.getClass();
         if (thisEffectiveClass != oEffectiveClass)
             return false;
         return id != null && Objects.equals(id, restaurant.id);
@@ -56,8 +59,9 @@ public class RestaurantEntity {
 
     @Override
     public final int hashCode() {
-        return this instanceof HibernateProxy hibernateProxy
-                ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+        return this instanceof HibernateProxy hibernateProxy ?
+                hibernateProxy.getHibernateLazyInitializer().getPersistentClass().hashCode() :
+                getClass().hashCode();
     }
 
 }

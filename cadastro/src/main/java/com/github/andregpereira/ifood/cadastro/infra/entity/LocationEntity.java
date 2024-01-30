@@ -1,9 +1,6 @@
 package com.github.andregpereira.ifood.cadastro.infra.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -16,6 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "location")
+@Table(name = "tb_location")
 public class LocationEntity {
 
     @Id
@@ -32,10 +30,12 @@ public class LocationEntity {
             return true;
         if (!(o instanceof LocationEntity location))
             return false;
-        Class<?> oEffectiveClass = o instanceof HibernateProxy hibernateProxy
-                ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass() : o.getClass();
-        Class<?> thisEffectiveClass = this instanceof HibernateProxy hibernateProxy
-                ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        Class<?> oEffectiveClass = o instanceof HibernateProxy hibernateProxy ?
+                hibernateProxy.getHibernateLazyInitializer().getPersistentClass() :
+                o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy hibernateProxy ?
+                hibernateProxy.getHibernateLazyInitializer().getPersistentClass() :
+                this.getClass();
         if (thisEffectiveClass != oEffectiveClass)
             return false;
         return id != null && Objects.equals(id, location.id);
@@ -43,8 +43,9 @@ public class LocationEntity {
 
     @Override
     public final int hashCode() {
-        return this instanceof HibernateProxy hibernateProxy
-                ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+        return this instanceof HibernateProxy hibernateProxy ?
+                hibernateProxy.getHibernateLazyInitializer().getPersistentClass().hashCode() :
+                getClass().hashCode();
     }
 
 }
