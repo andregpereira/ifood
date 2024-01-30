@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.resteasy.reactive.RestPath;
+import org.jboss.resteasy.reactive.RestQuery;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.jboss.resteasy.reactive.RestResponse.ResponseBuilder;
 
@@ -53,8 +54,20 @@ public class DishResource {
     }
 
     @GET
+    @Path("/{dishId}")
+    public Uni<RestResponse<DishDto>> findDishById(@RestPath UUID dishId) {
+        return facade.findById(restaurantId, dishId).map(RestResponse::ok);
+    }
+
+    @GET
     public Uni<RestResponse<List<DishDto>>> findAllDishes() {
         return facade.findAll().map(RestResponse::ok);
+    }
+
+    @GET
+    @Path("/name")
+    public Uni<RestResponse<List<DishDto>>> findDishesByName(@RestQuery String name) {
+        return facade.findByName(name).map(RestResponse::ok);
     }
 
 }
